@@ -1,6 +1,9 @@
-//TODO: Container methods
-
-
+/*
+ * Implementation of solitaire interactions.
+ * 
+ * [Date]        [Resp.]            [Remarks]
+ * 2021-02-23    Victor Prospero    Creation.
+ */
 Array.prototype.pushRange = function(range) {
 	for (var i = 0; i < range.length; i++)
 		this.push(range[i]);
@@ -20,47 +23,42 @@ Array.prototype.shuffle = function() {
   }
   return source;
 };
-
 var config = {
   "pip" : {
-    "1" : "Ace",
-    "2" : "2",
-    "3" : "3",
-    "4" : "4",
-    "5" : "5",
-    "6" : "6",
-    "7" : "7",
-    "8" : "8",
-    "9" : "9",
-    "10": "10",
-    "J" : "Jack",
-    "Q" : "Queen",
-    "K" : "King"
+    "1" : 0,
+    "2" : 1,
+    "3" : 2,
+    "4" : 3,
+    "5" : 4,
+    "6" : 5,
+    "7" : 6,
+    "8" : 7,
+    "9" : 8,
+    "10": 9,
+    "J" : 10,
+    "Q" : 11,
+    "K" : 12
   },
   "suit" : {
-    "Clubs"   : "Black",
-    "Spades"  : "Black",
-    "Hearts"  : "Red",
-    "Diamonds": "Red"
+    "Clubs"   : "#000",
+    "Spades"  : "#000",
+    "Hearts"  : "#f00",
+    "Diamonds": "#f00"
   }
 };
 
 // build a card
-function createCard(pip, suit) {
-	var sPip = config.pip[pip];
-	var sColor = config.suit[suit];
+function createCard(sPip, sSuit) {
+	var sColor = config.suit[sSuit];
 	return {
 		container: "",
-		pip: {
-			code: pip,
-			name: sPip
-		},
+		pip: sPip,
 		suit: {
-			name: suit,
+			name: sSuit,
 			color: sColor
 		},
 		getImage: function() {
-			return "Images/Card_" + this.suit.name + "_" + this.pip.name + ".png";
+			return "Images/Card_" + this.sSuit.name + "_" + this.sPip + ".png";
 		}
 	};
 }
@@ -97,14 +95,13 @@ function newGame(pips, suits, nDecks, callback) {
 	//chart the hidden table
 	var cardIndex = 0;
 	var chartHiddenTable = function(l, cb) {
-		if (i < l) {
+		if (l > 0) {
 			for (var i = 0; i < l; i++) {
-				console.log(l.toString() + "-" + i.toString());
-				containers.hiddenTable[i].push(lstCards[cardIndex]);
 				lstCards[cardIndex].container = "hiddenTable";
+				containers.hiddenTable[i].push(lstCards[cardIndex]);
 				cardIndex++;
 			}
-			chartHiddenTable(l - 1);
+			chartHiddenTable(l - 1, cb);
 		} else cb();
 	};
 	chartHiddenTable(nSuits, function() {
@@ -123,12 +120,10 @@ function newGame(pips, suits, nDecks, callback) {
 		callback(containers);
 	});
 }
-	
 var lstPips = [];
 var lstSuits = [];
 for (var k in config.pip) lstPips.push(k);
 for (var k in config.suit) lstSuits.push(k);
-
 newGame(lstPips, lstSuits, 2, function(containers) {
 	console.log(containers);
 });
