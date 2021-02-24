@@ -1,0 +1,72 @@
+/*
+ * Implementation of solitaire display
+ * 
+ * [Date]        [Resp.]            [Remarks]
+ * 2021-02-23    Victor Prospero    Creation.
+ */
+ 
+/* Global */
+@font-face {
+  font-family: cardFont;
+  src: url(Font/RobotoSlab-VariableFont_wght.ttf);
+}
+* { 
+  padding:0;
+  margin:0; 
+  border: solid 0;
+}
+body {
+  background-image: url("table.jpg");
+  padding:10px;
+}
+
+/* Shown/Hidden Cards */
+
+div.card {
+  padding: 2px 0;
+  font-family: cardFont;
+  font-size:16pt;
+  color: #000;
+  position: absolute;
+  width: 120px;
+  height: 180px;
+  border: solid 1px #222;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px #000;
+  cursor: pointer;
+  line-height: 80%;
+}
+div.card.red {
+  color: #f00;
+}
+div.card div, div.card ul{
+  display:none;
+  float: left;
+  border: solid 1px transparent;
+  width: 15%;
+  text-align:center;
+  height: 100%;
+}
+div.card ul {
+  font-size: 22pt;
+  width:63%;
+  border: solid 1px #555;
+  margin: 20px 0;
+  height: 140px;
+}
+div.card ul li {
+  height: 33.33%;
+  width: 100%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+div.card div:last-child, div.card ul li:last-child {
+  transform: rotate(180deg);
+}
+div.card.shown {
+  background: #fff;
+}
+div.card.shown * {
+  display:block;
+}
