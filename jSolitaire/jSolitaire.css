@@ -2,7 +2,8 @@
  * Implementation of solitaire display
  * 
  * [Date]        [Resp.]            [Remarks]
- * 2021-02-23    Victor Prospero    Creation.
+ * 2021-02-23    Victor Prospero    - Creation.
+ * 2021-02-24    Victor Prospero    - Game start implemented.
  */
  
 /* Global */
@@ -19,9 +20,14 @@ body {
   background-image: url("table.jpg");
   padding:10px;
 }
-
 /* Shown/Hidden Cards */
-
+div.container {
+  position: absolute;
+  width: 120px;
+  height: 180px;
+  border: solid 2px #050;
+  border-radius: 5px;
+}
 div.card {
   padding: 2px 0;
   font-family: cardFont;
@@ -35,9 +41,14 @@ div.card {
   box-shadow: 1px 1px 2px #000;
   cursor: pointer;
   line-height: 80%;
+  background-color: red;
+  background-image: url("card-back.jpg");
+  background-repeat: no-repeat;
+  background-position: -5px -5px;
+  background-size: 130px 195px;
 }
-div.card.red {
-  color: #f00;
+div.card[color=red] {
+  color: #a30;
 }
 div.card div, div.card ul{
   display:none;
@@ -48,7 +59,7 @@ div.card div, div.card ul{
   height: 100%;
 }
 div.card ul {
-  font-size: 22pt;
+  font-size: 21pt;
   width:63%;
   border: solid 1px #555;
   margin: 20px 0;
@@ -65,7 +76,10 @@ div.card div:last-child, div.card ul li:last-child {
   transform: rotate(180deg);
 }
 div.card.shown {
-  background: #fff;
+  background-color: #fff;
+  background-image: url("card-front.jpg");
+  background-position: -5px -50px;
+  background-size: auto;
 }
 div.card.shown * {
   display:block;
